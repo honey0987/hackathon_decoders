@@ -1,0 +1,5 @@
+export type Category = "Food" | "Culture" | "Workshop" | "Nature" | "Wellness" | "Nightlife" | "Shopping" | "Adventure";
+export type Experience = { id:string; title:string; provider:string; category:Category; area:string; image:string; price:number; duration:number; distance:number; travelMinutes:number; rating:number; reviewCount:number; capacity:number; tags:string[]; indoor:boolean; available:boolean; open:boolean; accessibility:string[]; authenticity:number; touristDensity:number; popularity:number; description:string };
+export type TravelerContext = { budget:number; timeAvailable:number; groupSize:number; interests:string[]; maxDistance:number; accessibility:string[]; isRaining:boolean; travelerType:"family"|"couple"|"solo"|"friends"; strictBudget?:boolean; itinerary?: { start:number; end:number }[] };
+export type Feasibility = { feasible:boolean; totalMinutes:number; blockers:string[]; slack:number };
+export type Recommendation = { experience:Experience; score:number; match:number; feasibility:Feasibility; reasons:string[]; breakdown:Record<string,number> };

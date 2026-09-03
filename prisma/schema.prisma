@@ -1,0 +1,60 @@
+generator client { provider = "prisma-client-js" }
+datasource db { provider = "postgresql"; url = env("DATABASE_URL") }
+
+model User {
+  id String @id @default(cuid())
+  name String
+  travelerType String?
+  interests String[]
+  budget Int?
+  accessibilityRequirements String[]
+  preferences Json?
+  itinerary ItineraryItem[]
+  saved SavedExperience[]
+  reviews Review[]
+  createdAt DateTime @default(now())
+}
+model Provider {
+  id String @id @default(cuid())
+  name String
+  description String
+  location String
+  contact String?
+  categories String[]
+  verificationStatus String @default("PENDING")
+  experiences Experience[]
+}
+model Experience {
+  id String @id @default(cuid())
+  providerId String
+  provider Provider @relation(fields:[providerId], references:[id])
+  title String
+  description String
+  category String
+  city String @default("Mumbai")
+  location String
+  latitude Float
+  longitude Float
+  price Int
+  durationMinutes Int
+  capacity Int
+  rating Float @default(0)
+  reviewCount Int @default(0)
+  openingHours Json
+  accessibility String[]
+  tags String[]
+  images String[]
+  localityScore Float
+  authenticityScore Float
+  touristDensity Float
+  availability AvailabilitySlot[]
+  itineraryItems ItineraryItem[]
+  savedBy SavedExperience[]
+  reviews Review[]
+  @@index([city,category])
+  @@index([latitude,longitude])
+}
+model AvailabilitySlot { id String @id @default(cuid()); experienceId String; experience Experience @relation(fields:[experienceId],references:[id],onDelete:Cascade); start DateTime; end DateTime; remainingCapacity Int; updatedAt DateTime @updatedAt; @@index([experienceId,start,end]) }
+model ItineraryItem { id String @id @default(cuid()); userId String; user User @relation(fields:[userId],references:[id],onDelete:Cascade); experienceId String; experience Experience @relation(fields:[experienceId],references:[id]); startTime DateTime; endTime DateTime; status String @default("SAVED"); @@index([userId,startTime,endTime]) }
+model SavedExperience { userId String; experienceId String; user User @relation(fields:[userId],references:[id],onDelete:Cascade); experience Experience @relation(fields:[experienceId],references:[id],onDelete:Cascade); createdAt DateTime @default(now()); @@id([userId,experienceId]) }
+model Review { id String @id @default(cuid()); userId String; experienceId String; user User @relation(fields:[userId],references:[id]); experience Experience @relation(fields:[experienceId],references:[id]); rating Int; text String; createdAt DateTime @default(now()); @@index([experienceId]) }
