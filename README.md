@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # Roamly — Local & Experiences
 
 ## Concrete MVP architecture
