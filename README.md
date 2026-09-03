@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Roamly — Local & Experiences
 
 ## Concrete MVP architecture
@@ -36,3 +37,6 @@ Install Node LTS and npm, then run `npm install`, `npm run dev`, and open `http:
 6. Open Provider view for demand, segments, and Saturday-evening availability suggestion.
 
 See `docs/architecture.md` for API, schema, feature boundary, and delivery plan.
+=======
+# hackathon_decoders
+>>>>>>> 05d407aa2d390091b53525e3a7c56b567f5036bb
